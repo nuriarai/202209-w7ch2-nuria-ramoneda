@@ -1,20 +1,23 @@
-import "./loadEnvirontment.js";
+import environtment from "./loadEnvirontment.js";
+import debugCreator from "debug";
+import chalk from "chalk";
+import app from "./server/app.js";
 import connectDatabase from "./database/index.js";
 import startServer from "./server/index.js";
-// Import mongoose from "mongoose";
 
-const port = process.env.PORT;
-const mongoUrl = process.env.MONGODB_URL;
+const debug = debugCreator("robots: root");
 
-// eslint-disable-next-line no-implicit-coercion
-await startServer(+port);
-await connectDatabase(mongoUrl);
+const defaulPort = 4000;
 
-// Try {
-// await startServer(+port);
-// debug(chalk.yellow(`Server listening on: http://localhost:${port}`));
-// await connectDatabase();
-// debug(chalk.green("Connection to database was successfull"));
-// } catch (error: unknown){
-//    debug(chalk.red("Error on starting the API", error.message));
-// }
+const port = environtment.port ?? defaulPort;
+const { mongoDbUrl } = environtment;
+
+try {
+  await startServer(app, Number(port));
+  debug(chalk.yellow(`Server listening on: http://localhost:${port}`));
+
+  await connectDatabase(mongoDbUrl);
+  debug(chalk.green("Connection to database was successfull"));
+} catch (error: unknown) {
+  debug(chalk.red("Error on starting the API", (error as Error).message));
+}
