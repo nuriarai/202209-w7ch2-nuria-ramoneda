@@ -1,10 +1,11 @@
 import "../../loadEnvirontment.js";
 import express from "express";
-import loginUser from "../controllers/userControllers.js";
+import { loginUser, registerUser } from "../controllers/userControllers.js";
 
 // eslint-disable-next-line new-cap
-const userRouter = express.Router();
+const usersRouter = express.Router();
 
-userRouter.get("/login", loginUser);
+usersRouter.post("/login", loginUser);
+usersRouter.post("/register", registerUser);
 
-export default userRouter;
+export default usersRouter;
