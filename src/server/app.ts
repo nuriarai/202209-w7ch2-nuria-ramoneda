@@ -4,7 +4,6 @@ import { generalError, notFoundError } from "./middlewares/error.js";
 import robotsRouter from "./routers/robotsRouters.js";
 import cors from "cors";
 import usersRouter from "./routers/usersRouter.js";
-import auth from "./middlewares/auth.js";
 
 const app = express();
 
