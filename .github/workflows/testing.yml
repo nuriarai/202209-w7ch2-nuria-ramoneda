@@ -16,3 +16,5 @@ jobs:
 
       - name: Testing
         run: npm test
+        env:
+          JWT_SECRET: 39e679e9aa1adf1c2ffc9ea77ea39033
