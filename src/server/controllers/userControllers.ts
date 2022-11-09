@@ -36,8 +36,13 @@ export const loginUser = async (
     return;
   }
 
+  const tokenPayload: UserTokenPayload = {
+    id: user._id.toString(),
+    username,
+  };
+
   // Const secret = process.env.JWT_SECRET;
-  const token = jwt.sign((user._id, username), environtment.jwtSecret, {
+  const token = jwt.sign(tokenPayload, environtment.jwtSecret, {
     expiresIn: "2d",
   });
 
